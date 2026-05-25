@@ -194,6 +194,30 @@
 \end{columns}
 \end{frame}
 
+\begin{frame}{现实案例：两种策略的对比}
+\begin{columns}[T]
+\column{0.48\textwidth}
+\begin{alertblock}{分开展示}
+\centering
+\includegraphics[width=\textwidth]{figures/separate_example.png}
+\end{alertblock}
+\begin{itemize}
+    \item 每个型号独立评分
+    \item 4.4星(57评)、4.3星(41评)、4.4星(95评)
+\end{itemize}
+
+\column{0.48\textwidth}
+\begin{exampleblock}{聚合展示}
+\centering
+\includegraphics[width=0.85\textwidth]{figures/integrate_example.png}
+\end{exampleblock}
+\begin{itemize}
+    \item 整个系列合并评分
+    \item 4.5星(674评)
+\end{itemize}
+\end{columns}
+\end{frame}
+
 \begin{frame}{研究问题}
 \begin{center}
 \begin{tikzpicture}
@@ -247,8 +271,10 @@
 \end{frame}
 
 %==============================================================================
-\section{模型设定}
+\section{模型与结果}
 %==============================================================================
+
+\subsection{模型设定}
 
 \begin{frame}{模型概述}
 \textbf{基本设定}
@@ -374,9 +400,7 @@ k_\delta = m_\delta(v_\delta - h \cdot p_\delta), \quad \delta \in \{B, G\}
 \end{itemize}
 \end{frame}
 
-%==============================================================================
-\section{分开展示分析}
-%==============================================================================
+\subsection{分开展示分析}
 
 \begin{frame}{分开展示：贝叶斯更新}
 \textbf{后验分布}（命题 4.1）
@@ -397,9 +421,7 @@ q_\delta \mid r_\delta \sim N\left(\frac{\tau \bar{q}_\delta + k_\delta\theta\ze
 \HL{关键特征}：两种产品的定价决策\textbf{相互独立}
 \end{frame}
 
-%==============================================================================
-\section{聚合展示分析}
-%==============================================================================
+\subsection{聚合展示分析}
 
 \begin{frame}{聚合展示：贝叶斯更新}
 \textbf{后验分布}（命题 5.1）
@@ -439,9 +461,7 @@ v_{IB} = \frac{(k_B + k_G)k_B\theta\zeta \cdot r_I - k_B k_G\theta\zeta \cdot q_
 \end{itemize}
 \end{frame}
 
-%==============================================================================
-\section{策略比较}
-%==============================================================================
+\subsection{策略比较}
 
 \begin{frame}{核心结果一：给定购买量下分开展示占优}
 \begin{block}{命题 5.3}
@@ -497,8 +517,10 @@ v_{IB} = \frac{(k_B + k_G)k_B\theta\zeta \cdot r_I - k_B k_G\theta\zeta \cdot q_
 \end{frame}
 
 %==============================================================================
-\section{数值分析}
+\section{数值分析与扩展}
 %==============================================================================
+
+\subsection{数值模拟}
 
 \begin{frame}{数值模拟设定}
 \textbf{基准参数}
@@ -576,9 +598,7 @@ v_{IB} = \frac{(k_B + k_G)k_B\theta\zeta \cdot r_I - k_B k_G\theta\zeta \cdot q_
 \end{columns}
 \end{frame}
 
-%==============================================================================
-\section{福利分析}
-%==============================================================================
+\subsection{福利分析}
 
 \begin{frame}{福利分析：利润与福利目标一致}
 \textbf{消费者剩余}
@@ -603,9 +623,7 @@ CS_{\psi 2} = \frac{m_{B2} \cdot \E[\max\{0, v_{\psi B}^2\}]}{8h} + \frac{m_{G2}
 \end{itemize}
 \end{frame}
 
-%==============================================================================
-\section{模型扩展}
-%==============================================================================
+\subsection{模型扩展}
 
 \begin{frame}{扩展：评论精度非对称性}
 \textbf{扩展动机}
