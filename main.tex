@@ -105,46 +105,37 @@
 %==============================================================================
 
 \begin{frame}{研究背景}
-\begin{columns}[T]
-\column{0.55\textwidth}
-\textbf{电商平台的核心挑战}
-\begin{itemize}
-    \item 消费者面临\pos{信息不对称}问题
-    \item 在线评论成为\HL{关键信息来源}
-    \item 平台如何设计评论展示系统？
-\end{itemize}
+\textbf{在线购物中，消费者如何判断产品质量？}
 
 \vspace{8pt}
-\textbf{典型场景：垂直差异化产品}
 \begin{itemize}
-    \item 同品牌不同型号（iPhone 15 vs 16）
-    \item 同类别不同配置（基础款 vs 高端款）
+    \item 网购时，消费者\pos{无法亲身体验}产品
+    \item \HL{在线评论}成为了解产品质量的重要途径
+    \item 据统计，超过90\%的消费者在购买前会查看评论
 \end{itemize}
 
-\column{0.42\textwidth}
-\begin{tikzpicture}[scale=0.85]
-    % Platform
-    \node[draw, rounded corners, fill=positive!15, minimum width=2.8cm, minimum height=0.9cm] (platform) at (0,2.8) {电商平台};
+\vspace{12pt}
+\textbf{平台面临的设计问题}
 
-    % Products
-    \node[draw, fill=negative!15, minimum width=1.1cm, minimum height=0.7cm, font=\small] (prodB) at (-0.9,1.4) {产品B};
-    \node[draw, fill=emphasis!15, minimum width=1.1cm, minimum height=0.7cm, font=\small] (prodG) at (0.9,1.4) {产品G};
+\vspace{6pt}
+当平台销售\HL{多个相似产品}时（如同品牌不同型号），评论应该如何展示？
 
-    % Reviews
-    \node[draw, dashed, minimum width=2.6cm, minimum height=0.5cm, font=\small] (reviews) at (0,0.2) {评论数据};
+\vspace{8pt}
+\begin{columns}[c]
+\column{0.45\textwidth}
+\begin{center}
+\textbf{例如：}\\[4pt]
+iPhone 15 vs iPhone 16\\
+基础款床垫 vs 高端款床垫\\
+标准版软件 vs 专业版软件
+\end{center}
 
-    % Consumer
-    \node[draw, circle, fill=cbPurple!20, minimum size=0.7cm, font=\small] (consumer) at (0,-0.9) {消费者};
-
-    % Arrows
-    \draw[->, thick] (platform) -- (prodB);
-    \draw[->, thick] (platform) -- (prodG);
-    \draw[->, thick] (prodB) -- (reviews);
-    \draw[->, thick] (prodG) -- (reviews);
-    \draw[->, thick, positive] (reviews) -- (consumer);
-    \node[right, font=\footnotesize, positive] at (0.1,-0.35) {学习};
-\end{tikzpicture}
-\end{column}
+\column{0.45\textwidth}
+\begin{center}
+\textbf{问题：}\\[4pt]
+各产品评论分开展示？\\
+还是合并成一个综合评分？
+\end{center}
 \end{columns}
 \end{frame}
 
