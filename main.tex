@@ -542,7 +542,7 @@ v_{IG} &= \frac{(k_{B1}+k_{G1})k_{G1}\theta\zeta \cdot r_I - k_{B1}k_{G1}\theta\
 
 给定后验感知价值 $v_{\psi\delta}$，平台最大化 $\Pi_{\psi\delta 2} = p_{\delta 2} \cdot m_{\delta 2}(v_{\psi\delta} - hp_{\delta 2})$
 
-这是关于 $p_{\delta 2}$ 的\HL{开口向下抛物线}，一阶条件直接得：
+这是关于 $p_{\delta 2}$ 的\HL{开口向下抛物线}，一阶条件直接得第二期价格 $(p_{B2}^*, p_{G2}^*)$：
 \[
 \Pi^*_{\psi 2} = \frac{m_{B2} \cdot \max\{0, v_{\psi B}\}^2}{4h} + \frac{m_{G2} \cdot \max\{0, v_{\psi G}\}^2}{4h}
 \]
@@ -551,7 +551,7 @@ v_{IG} &= \frac{(k_{B1}+k_{G1})k_{G1}\theta\zeta \cdot r_I - k_{B1}k_{G1}\theta\
 \vspace{6pt}
 \textbf{第一期利润}
 
-由需求函数反解价格：$p_{\delta 1} = \frac{m_{\delta 1} q_\delta - k_{\delta 1}}{hm_{\delta 1}}$，利润为：
+根据定义将价格写成关于需求的函数：$p_{\delta 1} = \frac{m_{\delta 1} q_\delta - k_{\delta 1}}{hm_{\delta 1}}$，利润为：
 \[
 \Pi_{\psi 1} = \frac{(m_{B1} q_L - k_{B1})k_{B1}}{hm_{B1}} + \frac{(m_{G1} q_H - k_{G1})k_{G1}}{hm_{G1}} \quad \Rightarrow \quad \text{也是 \pos{$k_{B1}, k_{G1}$ 的函数}}
 \]
@@ -560,31 +560,46 @@ v_{IG} &= \frac{(k_{B1}+k_{G1})k_{G1}\theta\zeta \cdot r_I - k_{B1}k_{G1}\theta\
 \textbf{优化问题归结为}：选择最优 $(k_{B1}^*, k_{G1}^*)$ 最大化 $\Pi_\psi = \Pi_{\psi 1} + \E[\Pi^*_{\psi 2}]$
 \end{frame}
 
-\begin{frame}{最优定价决策：一般情形}
+\begin{frame}{最优定价决策：分开展示}
 引入辅助函数（Xiao 2022）：$g(\mu, \sigma) = \int_{-\mu/\sigma}^{+\infty} z(z + \frac{\mu}{\sigma})\phi(z)dz$，性质：$g$ 关于 $\sigma$ 递减
 
-\vspace{4pt}
+\vspace{8pt}
 \begin{alertblock}{分开展示：两个独立方程}
 \vspace{-6pt}
 \begin{align*}
-k_{SB}^* &= \frac{m_{B1} q_L}{2} + \frac{m_{B1} m_{B2}\theta\zeta}{8} g(q_L, \sigma_{SB}) \frac{\tau^2}{(\tau^2 + k_{SB}^*\tau\theta\zeta)^2}\\[2pt]
+k_{SB}^* &= \frac{m_{B1} q_L}{2} + \frac{m_{B1} m_{B2}\theta\zeta}{8} g(q_L, \sigma_{SB}) \frac{\tau^2}{(\tau^2 + k_{SB}^*\tau\theta\zeta)^2}\\[4pt]
 k_{SG}^* &= \frac{m_{G1} q_H}{2} + \frac{m_{G1} m_{G2}\theta\zeta}{8} g(q_H, \sigma_{SG}) \frac{\tau^2}{(\tau^2 + k_{SG}^*\tau\theta\zeta)^2}
 \end{align*}
 \end{alertblock}
 
-\vspace{-4pt}
+\vspace{8pt}
+\textbf{结构解读}：
+\begin{itemize}
+    \item 第一项 $\frac{m_{\delta 1} q_\delta}{2}$：\HL{短视最优}（仅考虑第一期利润）
+    \item 第二项：\pos{信息价值}（第一期销量产生评论，提升第二期定价能力）
+    \item 两产品的一阶条件\textbf{相互独立}，可分别求解
+\end{itemize}
+\end{frame}
+
+\begin{frame}{最优定价决策：聚合展示}
 \begin{exampleblock}{聚合展示：两个耦合方程}
-\vspace{-6pt}
 记 $D = (k_{IB}^2+k_{IG}^2)\tau\theta\zeta + (k_{IB}+k_{IG})\tau^2$，则：
 \begin{align*}
 k_{IB}^* &= \frac{m_{B1} q_L}{2} + \frac{m_{B1} m_{B2}\theta\zeta}{8} g(q_L, \sigma_{IB}) \frac{k_{IB}^2\tau^2 + 2(k_{IG}^2\tau\theta\zeta + k_{IG}\tau^2)k_{IB}}{D^2}\\
-&\quad - \frac{m_{B1} m_{G2}\theta\zeta}{8} g(q_H, \sigma_{IG}) \frac{(2k_{IB}\tau\theta\zeta + \tau^2)k_{IG}^2}{D^2}\\[2pt]
+&\quad - \frac{m_{B1} m_{G2}\theta\zeta}{8} g(q_H, \sigma_{IG}) \frac{(2k_{IB}\tau\theta\zeta + \tau^2)k_{IG}^2}{D^2}\\[4pt]
 k_{IG}^* &= \frac{m_{G1} q_H}{2} + \frac{m_{G1} m_{G2}\theta\zeta}{8} g(q_H, \sigma_{IG}) \frac{k_{IG}^2\tau^2 + 2(k_{IB}^2\tau\theta\zeta + k_{IB}\tau^2)k_{IG}}{D^2}\\
 &\quad - \frac{m_{G1} m_{B2}\theta\zeta}{8} g(q_L, \sigma_{IB}) \frac{(2k_{IG}\tau\theta\zeta + \tau^2)k_{IB}^2}{D^2}
 \end{align*}
 \end{exampleblock}
 
-\vspace{2pt}
+\vspace{4pt}
+\textbf{结构解读}：
+\begin{itemize}
+    \item 两产品的一阶条件\con{相互耦合}，需联立求解
+    \item 交叉项反映：一种产品销量影响另一种产品的信息价值
+\end{itemize}
+
+\vspace{4pt}
 \con{问题}：一般情形下为隐式方程组，\textbf{无法解析求解} $\Rightarrow$ 考虑对称特殊情形
 \end{frame}
 
