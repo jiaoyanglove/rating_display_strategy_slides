@@ -133,7 +133,7 @@ iPhone 15 vs iPhone 16\\
 \column{0.45\textwidth}
 \begin{center}
 \textbf{问题：}\\[4pt]
-各产品评论分开展示？\\
+同类垂直差异化产品评论分开展示？\\
 还是合并成一个综合评分？
 \end{center}
 \end{columns}
@@ -224,9 +224,9 @@ iPhone 15 vs iPhone 16\\
 \textbf{具体子问题}
 \begin{enumerate}
     \item 两种策略下消费者的\pos{学习行为}有何不同？
-    \item 策略选择如何影响平台\pos{利润}？
-    \item 策略选择对\HL{消费者福利}有何影响？
-    \item 评论精度非对称性如何影响策略比较？
+    \item 平台如何进行\pos{最优定价决策}？
+    \item 哪种策略能带来更高的\pos{平台利润}与\HL{社会福利}？
+    \item 模型存在哪些可能的\HL{扩展方向}？
 \end{enumerate}
 \end{frame}
 
@@ -257,38 +257,6 @@ iPhone 15 vs iPhone 16\\
     \item \textbf{内容}：垄断认证中介的最优策略通常是减少信息揭示
     \item \textbf{区别}：不涉及多产品定价；本文关注粗糙化如何影响\pos{差别定价能力}
 \end{itemize}
-\end{frame}
-
-\begin{frame}{研究框架：四个核心问题}
-\begin{enumerate}
-    \item \textbf{消费者如何决策？}
-    \begin{itemize}
-        \item 第一期：基于先验信念 $q_p$ 决定是否购买
-        \item 第二期：观察评分信号 $r_\psi$，贝叶斯更新后验信念 $v_{\psi\delta}$，再决定购买
-    \end{itemize}
-
-    \vspace{6pt}
-    \item \textbf{平台如何决策？}
-    \begin{itemize}
-        \item $t=0$：选择展示策略 $\psi \in \{S, I\}$，制定第一期价格 $p_{\delta 1}$
-        \item $t=1$：观察评分后，制定第二期最优价格 $p^*_{\delta 2} = v_{\psi\delta}/(2h)$
-    \end{itemize}
-
-    \vspace{6pt}
-    \item \textbf{如何比较两种策略？}
-    \begin{itemize}
-        \item 对称情形：解析比较方差 $\sigma_S^2$ vs $\sigma_I^2$、利润 $\Pi_S^*$ vs $\Pi_I^*$
-        \item 一般情形：数值模拟验证参数敏感性
-    \end{itemize}
-
-    \vspace{6pt}
-    \item \textbf{其他考量因素}
-    \begin{itemize}
-        \item 消费者福利：$CS_S^*$ vs $CS_I^*$
-        \item 社会总福利：$W_S^*$ vs $W_I^*$
-        \item 扩展：评论精度非对称性 $\zeta_B \neq \zeta_G$
-    \end{itemize}
-\end{enumerate}
 \end{frame}
 
 \begin{frame}{平台评论系统设计}
@@ -392,6 +360,38 @@ iPhone 15 vs iPhone 16\\
 
 \vspace{6pt}
 \textbf{分析框架}：给定展示策略 $\psi$，求解平台最优定价决策
+\end{frame}
+
+\begin{frame}{研究框架：四个核心问题}
+\begin{enumerate}
+    \item \textbf{消费者如何决策？}
+    \begin{itemize}
+        \item 第一期：基于先验信念 $q_p$ 决定是否购买
+        \item 第二期：观察评分信号 $r_\psi$，贝叶斯更新后验信念 $v_{\psi\delta}$，再决定购买
+    \end{itemize}
+
+    \vspace{6pt}
+    \item \textbf{平台如何决策？}
+    \begin{itemize}
+        \item $t=0$：选择展示策略 $\psi \in \{S, I\}$，制定第一期价格 $p_{\delta 1}$
+        \item $t=1$：观察评分后，制定第二期最优价格 $p^*_{\delta 2} = v_{\psi\delta}/(2h)$
+    \end{itemize}
+
+    \vspace{6pt}
+    \item \textbf{如何比较两种策略？}
+    \begin{itemize}
+        \item 对称情形：解析比较方差 $\sigma_S^2$ vs $\sigma_I^2$、利润 $\Pi_S^*$ vs $\Pi_I^*$
+        \item 一般情形：数值模拟验证参数敏感性
+    \end{itemize}
+
+    \vspace{6pt}
+    \item \textbf{其他考量因素}
+    \begin{itemize}
+        \item 消费者福利：$CS_S^*$ vs $CS_I^*$
+        \item 社会总福利：$W_S^*$ vs $W_I^*$
+        \item 扩展：评论精度非对称性 $\zeta_B \neq \zeta_G$
+    \end{itemize}
+\end{enumerate}
 \end{frame}
 
 \begin{frame}{产品质量与消费者感知}
