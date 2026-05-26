@@ -224,7 +224,7 @@ iPhone 15 vs iPhone 16\\
 \textbf{具体子问题}
 \begin{enumerate}
     \item 两种策略下消费者的\pos{学习行为}有何不同？
-    \item 平台如何进行\pos{最优定价决策}？
+    \item 确定评论展示策略后，平台如何进行\pos{最优定价决策}？
     \item 哪种策略能带来更高的\pos{平台利润}与\HL{社会福利}？
     \item 模型存在哪些可能的\HL{扩展方向}？
 \end{enumerate}
@@ -380,8 +380,8 @@ iPhone 15 vs iPhone 16\\
     \vspace{6pt}
     \item \textbf{如何比较两种策略？}
     \begin{itemize}
-        \item 对称情形：解析比较方差 $\sigma_S^2$ vs $\sigma_I^2$、利润 $\Pi_S^*$ vs $\Pi_I^*$
-        \item 一般情形：数值模拟验证参数敏感性
+        \item 给定同一组参数，比较两种策略下平台最优定价决策带来的利润
+        \item 对称情形可解析求解；一般情形采用数值模拟
     \end{itemize}
 
     \vspace{6pt}
@@ -397,11 +397,11 @@ iPhone 15 vs iPhone 16\\
 \begin{frame}{产品质量与消费者感知}
 \textbf{产品质量}
 
-两产品质量独立同分布（对称设定）：
+两产品质量服从正态分布，\HL{均值不同}、方差相同（垂直差异化）：
 \[
-q_B \sim N(q_p, 1/\tau), \quad q_G \sim N(q_p, 1/\tau)
+q_B \sim N(q_L, 1/\tau), \quad q_G \sim N(q_H, 1/\tau), \quad q_L < q_H
 \]
-其中 $q_p$ 为先验均值，$\tau$ 为先验精度
+其中 $q_L, q_H$ 为先验均值，$\tau$ 为先验精度
 
 \vspace{10pt}
 \textbf{消费者感知}
@@ -415,9 +415,9 @@ q_{\delta,i} \sim N(q_\delta, 1/\zeta)
 \vspace{10pt}
 \textbf{需求函数}
 \[
-k_\delta = m(v_\delta - hp_\delta), \quad \delta \in \{B, G\}
+k_\delta = m_\delta(v_\delta - hp_\delta), \quad \delta \in \{B, G\}
 \]
-$v_\delta$：感知价值，$p_\delta$：价格，$h$：价格敏感度，$m$：市场规模
+$v_\delta$：感知价值，$p_\delta$：价格，$h$：价格敏感度，$m_\delta$：市场规模
 \end{frame}
 
 \begin{frame}{评论展示策略}
@@ -459,20 +459,20 @@ r_I|(q_B,q_G) \sim N\left(\bar{q}_w, \frac{1}{(k_B+k_G)\theta\zeta}\right)
 
 先验与似然的PDF：
 \[
-f(q_B) \propto \exp\left(-\frac{\tau}{2}(q_B - q_p)^2\right), \quad
+f(q_B) \propto \exp\left(-\frac{\tau}{2}(q_B - q_L)^2\right), \quad
 f(r_B|q_B) \propto \exp\left(-\frac{k_B\theta\zeta}{2}(r_B - q_B)^2\right)
 \]
 
 由贝叶斯公式 $f(q_B|r_B) \propto f(r_B|q_B)f(q_B)$，得\pos{后验分布}：
 \[
-q_B|r_B \sim N\left(\frac{\tau q_p + k_B\theta\zeta \cdot r_B}{\tau + k_B\theta\zeta}, \frac{1}{\tau + k_B\theta\zeta}\right)
+q_B|r_B \sim N\left(\frac{\tau q_L + k_B\theta\zeta \cdot r_B}{\tau + k_B\theta\zeta}, \frac{1}{\tau + k_B\theta\zeta}\right)
 \]
 
 \vspace{6pt}
 \textbf{后验均值}（第二期消费者感知价值）：
 \[
-v_{SB} = \frac{\tau q_p + k_B\theta\zeta \cdot r_B}{\tau + k_B\theta\zeta}, \quad
-v_{SG} = \frac{\tau q_p + k_G\theta\zeta \cdot r_G}{\tau + k_G\theta\zeta}
+v_{SB} = \frac{\tau q_L + k_B\theta\zeta \cdot r_B}{\tau + k_B\theta\zeta}, \quad
+v_{SG} = \frac{\tau q_H + k_G\theta\zeta \cdot r_G}{\tau + k_G\theta\zeta}
 \]
 
 \vspace{4pt}
@@ -490,9 +490,9 @@ f(r_I|q_B) = \int_{-\infty}^{+\infty} f(r_I|q_B, q_G)f(q_G)dq_G
 应用\HL{高斯积分公式} $\int e^{Aq^2 + Bq + C}dq \propto \exp\left(-\frac{B^2}{4A} + C\right)$
 
 \vspace{6pt}
-\textbf{后验分布}：
+\textbf{后验均值}：
 \[
-q_B|r_I \sim N\left(\frac{(k_B+k_G)k_B\theta\zeta \cdot r_I - k_Bk_G\theta\zeta \cdot q_p + (k_G^2\theta\zeta + (k_B+k_G)\tau)q_p}{(k_B^2+k_G^2)\theta\zeta + (k_B+k_G)\tau}, \sigma_{post}^2\right)
+v_{IB} = \frac{(k_B+k_G)k_B\theta\zeta \cdot r_I - k_Bk_G\theta\zeta \cdot q_H + (k_G^2\theta\zeta + (k_B+k_G)\tau)q_L}{(k_B^2+k_G^2)\theta\zeta + (k_B+k_G)\tau}
 \]
 
 \vspace{6pt}
@@ -507,7 +507,7 @@ q_B|r_I \sim N\left(\frac{(k_B+k_G)k_B\theta\zeta \cdot r_I - k_Bk_G\theta\zeta 
 \column{0.48\textwidth}
 \begin{alertblock}{分开展示}
 \[
-\mathbb{E}[v_{S\delta}] = q_p
+\mathbb{E}[v_{SB}] = q_L, \quad \mathbb{E}[v_{SG}] = q_H
 \]
 \[
 \sigma_{S\delta}^2 = \frac{k_\delta\theta\zeta}{\tau^2 + k_\delta\tau\theta\zeta}
@@ -517,7 +517,7 @@ q_B|r_I \sim N\left(\frac{(k_B+k_G)k_B\theta\zeta \cdot r_I - k_Bk_G\theta\zeta 
 \column{0.48\textwidth}
 \begin{exampleblock}{聚合展示}
 \[
-\mathbb{E}[v_{I\delta}] = q_p
+\mathbb{E}[v_{IB}] = q_L, \quad \mathbb{E}[v_{IG}] = q_H
 \]
 \[
 \sigma_{I\delta}^2 = \frac{k_\delta^2\theta\zeta}{(k_B^2+k_G^2)\tau\theta\zeta + (k_B+k_G)\tau^2}
@@ -538,26 +538,26 @@ q_B|r_I \sim N\left(\frac{(k_B+k_G)k_B\theta\zeta \cdot r_I - k_Bk_G\theta\zeta 
 \begin{frame}{利润结构}
 \textbf{第一期利润}
 
-由需求函数反解价格：$p_{\delta 1} = \frac{m q_p - k_\delta}{hm}$，利润为：
+由需求函数反解价格：$p_{\delta 1} = \frac{m_\delta q_\delta - k_\delta}{hm_\delta}$，利润为：
 \[
-\Pi_{\psi 1} = \frac{(m q_p - k_B)k_B}{hm} + \frac{(m q_p - k_G)k_G}{hm}
+\Pi_{\psi 1} = \frac{(m_{B1} q_L - k_B)k_B}{hm_{B1}} + \frac{(m_{G1} q_H - k_G)k_G}{hm_{G1}}
 \]
 
 \vspace{8pt}
 \textbf{第二期利润}
 
-给定后验感知价值 $v_{\psi\delta}$，平台最大化 $\Pi_{\psi\delta 2} = p \cdot m(v_{\psi\delta} - hp)$
+给定后验感知价值 $v_{\psi\delta}$，平台最大化 $\Pi_{\psi\delta 2} = p \cdot m_{\delta 2}(v_{\psi\delta} - hp)$
 
 一阶条件得最优价格与利润：
 \[
 p^*_{\psi\delta 2} = \max\left\{0, \frac{v_{\psi\delta}}{2h}\right\}, \quad
-\Pi^*_{\psi 2} = \frac{m \cdot \max\{0, v_{\psi B}\}^2}{4h} + \frac{m \cdot \max\{0, v_{\psi G}\}^2}{4h}
+\Pi^*_{\psi 2} = \frac{m_{B2} \cdot \max\{0, v_{\psi B}\}^2}{4h} + \frac{m_{G2} \cdot \max\{0, v_{\psi G}\}^2}{4h}
 \]
 
 \vspace{8pt}
 \textbf{总期望利润}：
 \[
-\Pi_\psi = \Pi_{\psi 1} + \int_0^{+\infty} \frac{m v_{\psi B}^2}{4h} f_{\psi B}(v)dv + \int_0^{+\infty} \frac{m v_{\psi G}^2}{4h} f_{\psi G}(v)dv
+\Pi_\psi = \Pi_{\psi B} + \Pi_{\psi G}
 \]
 \end{frame}
 
