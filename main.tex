@@ -234,31 +234,104 @@ iPhone 15 vs iPhone 16\\
 \section{文献综述}
 %==============================================================================
 
-\begin{frame}{相关文献}
+\begin{frame}{信息设计与贝叶斯说服}
 \small
-\begin{center}
-\begin{tabular}{p{2.8cm}p{4.2cm}p{5cm}}
-\toprule
-\textbf{研究领域} & \textbf{代表文献} & \textbf{与本文关系} \\
-\midrule
-信息设计与贝叶斯说服 & Kamenica \& Gentzkow (2011); Bergemann \& Morris (2019) & 理论框架基础 \\
-\midrule
-在线评论与消费者学习 & Acemoglu et al. (2022); Zhao et al. (2013) & 学习机制建模 \\
-\midrule
-平台评论系统设计 & Xiao et al. (2022); Shi et al. (2023) & 直接相关研究 \\
-\midrule
-多产品定价 & Mussa \& Rosen (1978); Johnson \& Myatt (2003) & 产品线背景 \\
-\bottomrule
-\end{tabular}
-\end{center}
+\textbf{Kamenica \& Gentzkow (2011) — 贝叶斯说服}
+\begin{itemize}
+    \item \textbf{内容}：发送者承诺于特定信号结构，通过"凹化"价值函数设计最优信息揭示
+    \item \textbf{区别}：其信号结构外生设计；本文中评分由消费者购买\HL{内生产生}
+    \item \textbf{借鉴}：贝叶斯更新的基本框架
+\end{itemize}
 
 \vspace{6pt}
-\textbf{本文贡献}：
+\textbf{Bergemann \& Morris (2019) — 信息设计统一框架}
 \begin{itemize}
-    \item 首次研究\HL{同类产品间}评论聚合与分开展示的策略选择
-    \item 将信息的\pos{内生生成过程}纳入信息设计框架
-    \item 引入评论精度非对称性扩展
+    \item \textbf{内容}：将贝叶斯说服推广为一般信息设计问题
+    \item \textbf{区别}：标准凹化方法难以直接适用于内生评论生成机制
+    \item \textbf{借鉴}：信息结构影响均衡结果的分析视角
 \end{itemize}
+
+\vspace{6pt}
+\textbf{Lizzeri (1999) — 中介信息披露}
+\begin{itemize}
+    \item \textbf{内容}：垄断认证中介的最优策略通常是减少信息揭示
+    \item \textbf{区别}：不涉及多产品定价；本文关注粗糙化如何影响\pos{差别定价能力}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{在线评论与消费者学习}
+\small
+\textbf{Acemoglu et al. (2022) — 评分系统与学习速度}
+\begin{itemize}
+    \item \textbf{内容}：比较不同评分系统下的学习速度，强调"选择效应"
+    \item \textbf{核心权衡}：更精细的评分加快学习，但减少每个子类别的样本量
+    \item \textbf{区别}：研究\con{同一产品}不同信息呈现；本文研究\pos{两个产品}之间的信息混合
+    \item \textbf{借鉴}：精度与样本量之间的张力
+\end{itemize}
+
+\vspace{8pt}
+\textbf{Banerjee (1992); Bikhchandani et al. (1992) — 社会学习}
+\begin{itemize}
+    \item \textbf{内容}：羊群行为和信息瀑布模型
+    \item \textbf{借鉴}：第一期少量评论可能对第二期消费者信念产生较大影响
+\end{itemize}
+
+\vspace{8pt}
+\textbf{Chevalier \& Mayzlin (2006) — 评论的因果效应}
+\begin{itemize}
+    \item \textbf{内容}：确认评论对销售的因果效应，差评影响大于好评
+    \item \textbf{本文局限}：模型尚未纳入好评/差评不对称机制
+\end{itemize}
+\end{frame}
+
+\begin{frame}{平台评论系统设计}
+\small
+\textbf{Xiao et al. (2022) — 评论集群展示}
+\begin{itemize}
+    \item \textbf{内容}：研究评论按产品属性分组展示的最优策略
+    \item \textbf{区别}：关注\con{属性维度}的信息组织；本文关注\pos{产品版本}之间的信息混合
+    \item \textbf{借鉴}：辅助函数 $g(\mu, \sigma)$ 的技术处理方法
+\end{itemize}
+
+\vspace{8pt}
+\textbf{Shi et al. (2023) — 平台声誉系统设计}
+\begin{itemize}
+    \item \textbf{内容}：研究平台声誉系统的最优披露粒度
+    \item \textbf{发现}：部分披露能同时激励卖家提升质量和增加交易量
+    \item \textbf{区别}：模型中只有\con{同质产品}，没有涉及垂直差异化下的跨产品信息混合
+\end{itemize}
+
+\vspace{8pt}
+\textbf{Dai et al. (2018) — Yelp 评分聚合}
+\begin{itemize}
+    \item \textbf{内容}：实证发现不同评分聚合方式带来效率差异
+    \item \textbf{借鉴}：现实背景支持；但尚未形式化刻画分开/聚合展示制度
+\end{itemize}
+\end{frame}
+
+\begin{frame}{多产品定价与本文贡献}
+\small
+\textbf{Mussa \& Rosen (1978) — 垂直差异化定价}
+\begin{itemize}
+    \item \textbf{内容}：垄断者通过质量与价格菜单实施二级价格歧视
+    \item \textbf{区别}：假设消费者完全知道质量；本文中消费者需要\HL{通过评分学习质量}
+\end{itemize}
+
+\vspace{8pt}
+\textbf{Yu et al. (2016) — 评论驱动的动态定价}
+\begin{itemize}
+    \item \textbf{内容}：评论可能导致企业在初期控制销量（"信息生成的负外部性"）
+    \item \textbf{借鉴}：聚合展示下增加一种产品销量会\con{稀释另一种产品的信号质量}
+\end{itemize}
+
+\vspace{10pt}
+\begin{block}{本文贡献}
+\begin{enumerate}
+    \item 首次在\HL{两期垂直差异化}框架内研究评论展示策略选择
+    \item 将信息的\pos{内生生成过程}纳入信息设计框架
+    \item 刻画展示制度、消费者学习、平台定价之间的联系
+\end{enumerate}
+\end{block}
 \end{frame}
 
 %==============================================================================
