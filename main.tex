@@ -492,11 +492,12 @@ f(r_I|q_B) = \int_{-\infty}^{+\infty} f(r_I|q_B, q_G)f(q_G)dq_G
 
 \vspace{6pt}
 \textbf{后验均值}（$k_{B1}, k_{G1}$为第一期购买量）：
-\[
-v_{IB} = \frac{(k_{B1}+k_{G1})k_{B1}\theta\zeta \cdot r_I - k_{B1}k_{G1}\theta\zeta \cdot q_H + (k_{G1}^2\theta\zeta + (k_{B1}+k_{G1})\tau)q_L}{(k_{B1}^2+k_{G1}^2)\theta\zeta + (k_{B1}+k_{G1})\tau}
-\]
+\begin{align*}
+v_{IB} &= \frac{(k_{B1}+k_{G1})k_{B1}\theta\zeta \cdot r_I - k_{B1}k_{G1}\theta\zeta \cdot q_H + (k_{G1}^2\theta\zeta + (k_{B1}+k_{G1})\tau)q_L}{(k_{B1}^2+k_{G1}^2)\theta\zeta + (k_{B1}+k_{G1})\tau}\\[4pt]
+v_{IG} &= \frac{(k_{B1}+k_{G1})k_{G1}\theta\zeta \cdot r_I - k_{B1}k_{G1}\theta\zeta \cdot q_L + (k_{B1}^2\theta\zeta + (k_{B1}+k_{G1})\tau)q_H}{(k_{B1}^2+k_{G1}^2)\theta\zeta + (k_{B1}+k_{G1})\tau}
+\end{align*}
 
-\vspace{6pt}
+\vspace{4pt}
 \con{关键特征}：$v_{IB}$ 与 $v_{IG}$ \textbf{相互耦合}——两产品信息混合在同一信号中
 \end{frame}
 
