@@ -741,34 +741,40 @@ CS_{\psi 2} = \frac{m_{B2} \cdot \E[\max\{0, v_{\psi B}^2\}]}{8h} + \frac{m_{G2}
 \textbf{扩展设定}：$\zeta_B \neq \zeta_G$，定义精度比 $\rho = \zeta_G / \zeta_B$
 
 \vspace{6pt}
-\begin{block}{命题 6.1：精度非对称性放大分开展示优势}
-定义信息效率比 $\mathcal{R}(\rho) = \frac{m\sigma_{SB}^2 + m\sigma_{SG}^2}{m\sigma_{IB}^2 + m\sigma_{IG}^2}$，则：
+\textbf{直观分析}
 \begin{itemize}
-    \item 当 $\rho = 1$（对称）时，$\mathcal{R}(1) = 2$
-    \item 当 $\rho \neq 1$ 时，$\mathcal{R}(\rho) > 2$
+    \item 分开展示：各产品分别利用各自精度 $\zeta_B$、$\zeta_G$
+    \item 聚合展示：使用\con{加权调和平均}精度 $\bar{\zeta} = \frac{k_B + k_G}{k_B/\zeta_B + k_G/\zeta_G}$
+    \item 调和平均对低精度敏感，低精度评论拖累整体信息质量
 \end{itemize}
-\end{block}
+
+\vspace{6pt}
+\con{问题}：非对称精度下一阶条件更复杂，\textbf{无解析解} $\Rightarrow$ 数值模拟
 \end{frame}
 
-\begin{frame}{扩展：数值验证}
+\begin{frame}{扩展：数值分析结果}
 \begin{center}
 \small
-\begin{tabular}{ccccc}
+\begin{tabular}{cccc}
 \toprule
-$\rho = \zeta_G/\zeta_B$ & 分开展示利润 & 聚合展示利润 & 利润差 & 信息比 $\mathcal{R}$ \\
+$\rho = \zeta_G/\zeta_B$ & 分开展示利润 & 聚合展示利润 & 利润差 \\
 \midrule
-0.25 & 2.4821 & 2.3056 & 0.1765 & 2.89 \\
-0.50 & 2.5634 & 2.4412 & 0.1222 & 2.41 \\
-1.00 & 2.6355 & 2.5741 & 0.0613 & 2.00 \\
-2.00 & 2.7089 & 2.5623 & 0.1466 & 2.48 \\
-4.00 & 2.7845 & 2.4987 & 0.2858 & 3.12 \\
+0.25 & 2.4821 & 2.3056 & \pos{0.1765} \\
+0.50 & 2.5634 & 2.4412 & 0.1222 \\
+1.00 & 2.6355 & 2.5741 & 0.0613 \\
+2.00 & 2.7089 & 2.5623 & 0.1466 \\
+4.00 & 2.7845 & 2.4987 & \pos{0.2858} \\
 \bottomrule
 \end{tabular}
 \end{center}
 
 \vspace{8pt}
-\begin{block}{命题 6.2：基准结论的稳健性}
-"分开展示普遍占优"的结论对评论精度的非对称性具有稳健性。精度非对称性是分开展示优势的\HL{放大因素}而非逆转因素。
+\begin{block}{数值结论：精度非对称性的影响}
+\begin{itemize}
+    \item 分开展示在所有测试配置 $\rho \in [0.2, 5.0]$ 下均产生更高利润
+    \item 精度非对称性（$\rho \neq 1$）\HL{放大}分开展示的利润优势
+    \item 基准结论对评论精度非对称性具有稳健性
+\end{itemize}
 \end{block}
 \end{frame}
 
