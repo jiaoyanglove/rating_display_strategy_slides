@@ -413,11 +413,12 @@ q_{\delta,i} \sim N(q_\delta, 1/\zeta)
 其中 $\zeta$ 为感知精度
 
 \vspace{10pt}
-\textbf{需求函数}
-\[
-k_\delta = m_\delta(v_\delta - hp_\delta), \quad \delta \in \{B, G\}
-\]
-$v_\delta$：感知价值，$p_\delta$：价格，$h$：价格敏感度，$m_\delta$：市场规模
+\textbf{需求函数}（分阶段定义）
+\begin{align*}
+k_{\delta 1} &= m_{\delta 1}(q_\delta - hp_{\delta 1}) & &\text{（第一期：基于先验）}\\
+k_{\delta 2} &= m_{\delta 2}(v_{\psi\delta} - hp_{\delta 2}) & &\text{（第二期：基于后验）}
+\end{align*}
+$q_\delta$：先验均值，$v_{\psi\delta}$：后验均值，$p_{\delta t}$：$t$期价格，$m_{\delta t}$：$t$期市场规模
 \end{frame}
 
 \begin{frame}{评论展示策略}
@@ -427,27 +428,27 @@ $v_\delta$：感知价值，$p_\delta$：价格，$h$：价格敏感度，$m_\de
 \begin{columns}[T]
 \column{0.48\textwidth}
 \begin{alertblock}{分开展示 (Separate)}
-各产品评分独立计算：
+各产品评分独立计算（基于第一期购买者）：
 \[
-r_\delta = \frac{1}{\theta k_\delta}\sum_{i=1}^{\theta k_\delta} q_{\delta,i}
+r_\delta = \frac{1}{\theta k_{\delta 1}}\sum_{i=1}^{\theta k_{\delta 1}} q_{\delta,i}
 \]
 条件分布：
 \[
-r_\delta|q_\delta \sim N\left(q_\delta, \frac{1}{k_\delta\theta\zeta}\right)
+r_\delta|q_\delta \sim N\left(q_\delta, \frac{1}{k_{\delta 1}\theta\zeta}\right)
 \]
 \end{alertblock}
 
 \column{0.48\textwidth}
 \begin{exampleblock}{聚合展示 (Integrate)}
-按购买量加权平均：
+按第一期购买量加权平均：
 \[
-r_I = \frac{k_B r_B + k_G r_G}{k_B + k_G}
+r_I = \frac{k_{B1} r_B + k_{G1} r_G}{k_{B1} + k_{G1}}
 \]
 条件分布：
 \[
-r_I|(q_B,q_G) \sim N\left(\bar{q}_w, \frac{1}{(k_B+k_G)\theta\zeta}\right)
+r_I|(q_B,q_G) \sim N\left(\bar{q}_w, \frac{1}{(k_{B1}+k_{G1})\theta\zeta}\right)
 \]
-其中 $\bar{q}_w = \frac{k_B q_B + k_G q_G}{k_B + k_G}$
+其中 $\bar{q}_w = \frac{k_{B1} q_B + k_{G1} q_G}{k_{B1} + k_{G1}}$
 \end{exampleblock}
 \end{columns}
 \end{frame}
@@ -457,22 +458,22 @@ r_I|(q_B,q_G) \sim N\left(\bar{q}_w, \frac{1}{(k_B+k_G)\theta\zeta}\right)
 \begin{frame}{分开展示：贝叶斯更新}
 \textbf{推导过程}
 
-先验与似然的PDF：
+先验与似然的PDF（$k_{B1}$为第一期购买量）：
 \[
 f(q_B) \propto \exp\left(-\frac{\tau}{2}(q_B - q_L)^2\right), \quad
-f(r_B|q_B) \propto \exp\left(-\frac{k_B\theta\zeta}{2}(r_B - q_B)^2\right)
+f(r_B|q_B) \propto \exp\left(-\frac{k_{B1}\theta\zeta}{2}(r_B - q_B)^2\right)
 \]
 
 由贝叶斯公式 $f(q_B|r_B) \propto f(r_B|q_B)f(q_B)$，得\pos{后验分布}：
 \[
-q_B|r_B \sim N\left(\frac{\tau q_L + k_B\theta\zeta \cdot r_B}{\tau + k_B\theta\zeta}, \frac{1}{\tau + k_B\theta\zeta}\right)
+q_B|r_B \sim N\left(\frac{\tau q_L + k_{B1}\theta\zeta \cdot r_B}{\tau + k_{B1}\theta\zeta}, \frac{1}{\tau + k_{B1}\theta\zeta}\right)
 \]
 
 \vspace{6pt}
 \textbf{后验均值}（第二期消费者感知价值）：
 \[
-v_{SB} = \frac{\tau q_L + k_B\theta\zeta \cdot r_B}{\tau + k_B\theta\zeta}, \quad
-v_{SG} = \frac{\tau q_H + k_G\theta\zeta \cdot r_G}{\tau + k_G\theta\zeta}
+v_{SB} = \frac{\tau q_L + k_{B1}\theta\zeta \cdot r_B}{\tau + k_{B1}\theta\zeta}, \quad
+v_{SG} = \frac{\tau q_H + k_{G1}\theta\zeta \cdot r_G}{\tau + k_{G1}\theta\zeta}
 \]
 
 \vspace{4pt}
@@ -490,9 +491,9 @@ f(r_I|q_B) = \int_{-\infty}^{+\infty} f(r_I|q_B, q_G)f(q_G)dq_G
 应用\HL{高斯积分公式} $\int e^{Aq^2 + Bq + C}dq \propto \exp\left(-\frac{B^2}{4A} + C\right)$
 
 \vspace{6pt}
-\textbf{后验均值}：
+\textbf{后验均值}（$k_{B1}, k_{G1}$为第一期购买量）：
 \[
-v_{IB} = \frac{(k_B+k_G)k_B\theta\zeta \cdot r_I - k_Bk_G\theta\zeta \cdot q_H + (k_G^2\theta\zeta + (k_B+k_G)\tau)q_L}{(k_B^2+k_G^2)\theta\zeta + (k_B+k_G)\tau}
+v_{IB} = \frac{(k_{B1}+k_{G1})k_{B1}\theta\zeta \cdot r_I - k_{B1}k_{G1}\theta\zeta \cdot q_H + (k_{G1}^2\theta\zeta + (k_{B1}+k_{G1})\tau)q_L}{(k_{B1}^2+k_{G1}^2)\theta\zeta + (k_{B1}+k_{G1})\tau}
 \]
 
 \vspace{6pt}
@@ -510,7 +511,7 @@ v_{IB} = \frac{(k_B+k_G)k_B\theta\zeta \cdot r_I - k_Bk_G\theta\zeta \cdot q_H +
 \mathbb{E}[v_{SB}] = q_L, \quad \mathbb{E}[v_{SG}] = q_H
 \]
 \[
-\sigma_{S\delta}^2 = \frac{k_\delta\theta\zeta}{\tau^2 + k_\delta\tau\theta\zeta}
+\sigma_{S\delta}^2 = \frac{k_{\delta 1}\theta\zeta}{\tau^2 + k_{\delta 1}\tau\theta\zeta}
 \]
 \end{alertblock}
 
@@ -520,14 +521,14 @@ v_{IB} = \frac{(k_B+k_G)k_B\theta\zeta \cdot r_I - k_Bk_G\theta\zeta \cdot q_H +
 \mathbb{E}[v_{IB}] = q_L, \quad \mathbb{E}[v_{IG}] = q_H
 \]
 \[
-\sigma_{I\delta}^2 = \frac{k_\delta^2\theta\zeta}{(k_B^2+k_G^2)\tau\theta\zeta + (k_B+k_G)\tau^2}
+\sigma_{I\delta}^2 = \frac{k_{\delta 1}^2\theta\zeta}{(k_{B1}^2+k_{G1}^2)\tau\theta\zeta + (k_{B1}+k_{G1})\tau^2}
 \]
 \end{exampleblock}
 \end{columns}
 
 \vspace{10pt}
 \begin{block}{命题：信息稀释效应}
-对于任意 $k_B, k_G > 0$，有 $\sigma_{I\delta}^2 < \sigma_{S\delta}^2$。
+对于任意 $k_{B1}, k_{G1} > 0$，有 $\sigma_{I\delta}^2 < \sigma_{S\delta}^2$。
 
 聚合展示引入\con{评论来源不确定性}，降低了消费者学习效率。
 \end{block}
@@ -538,15 +539,15 @@ v_{IB} = \frac{(k_B+k_G)k_B\theta\zeta \cdot r_I - k_Bk_G\theta\zeta \cdot q_H +
 \begin{frame}{利润结构}
 \textbf{第一期利润}
 
-由需求函数反解价格：$p_{\delta 1} = \frac{m_\delta q_\delta - k_\delta}{hm_\delta}$，利润为：
+由需求函数反解价格：$p_{\delta 1} = \frac{m_{\delta 1} q_\delta - k_{\delta 1}}{hm_{\delta 1}}$，利润为：
 \[
-\Pi_{\psi 1} = \frac{(m_{B1} q_L - k_B)k_B}{hm_{B1}} + \frac{(m_{G1} q_H - k_G)k_G}{hm_{G1}}
+\Pi_{\psi 1} = \frac{(m_{B1} q_L - k_{B1})k_{B1}}{hm_{B1}} + \frac{(m_{G1} q_H - k_{G1})k_{G1}}{hm_{G1}}
 \]
 
 \vspace{8pt}
 \textbf{第二期利润}
 
-给定后验感知价值 $v_{\psi\delta}$，平台最大化 $\Pi_{\psi\delta 2} = p \cdot m_{\delta 2}(v_{\psi\delta} - hp)$
+给定后验感知价值 $v_{\psi\delta}$，平台最大化 $\Pi_{\psi\delta 2} = p_{\delta 2} \cdot m_{\delta 2}(v_{\psi\delta} - hp_{\delta 2})$
 
 一阶条件得最优价格与利润：
 \[
@@ -555,9 +556,9 @@ p^*_{\psi\delta 2} = \max\left\{0, \frac{v_{\psi\delta}}{2h}\right\}, \quad
 \]
 
 \vspace{8pt}
-\textbf{总期望利润}：
+\textbf{总期望利润}（两产品、两阶段）：
 \[
-\Pi_\psi = \Pi_{\psi B} + \Pi_{\psi G}
+\Pi_\psi = \Pi_{\psi 1} + \E[\Pi^*_{\psi 2}]
 \]
 \end{frame}
 
@@ -565,14 +566,14 @@ p^*_{\psi\delta 2} = \max\left\{0, \frac{v_{\psi\delta}}{2h}\right\}, \quad
 引入辅助函数（Xiao 2022）：$g(\mu, \sigma) = \int_{-\mu/\sigma}^{+\infty} z(z + \frac{\mu}{\sigma})\phi(z)dz$，性质：$g$ 关于 $\sigma$ 递减
 
 \vspace{6pt}
-\textbf{一般情形的一阶条件}（隐函数方程）
+\textbf{一般情形的一阶条件}（$k^*_{\psi\delta 1}$为第一期最优需求量，$m_1, m_2$为两期市场规模）
 
 \vspace{4pt}
 \begin{alertblock}{分开展示：两个独立方程}
 \vspace{-8pt}
 \begin{align*}
-k_{SB}^* &= \frac{m_1 q_L}{2} + \frac{m_1 m_2\theta\zeta}{8} g(q_L, \sigma_{SB}) \frac{\tau^2}{(\tau^2 + k_{SB}^*\tau\theta\zeta)^2}\\[2pt]
-k_{SG}^* &= \frac{m_1 q_H}{2} + \frac{m_1 m_2\theta\zeta}{8} g(q_H, \sigma_{SG}) \frac{\tau^2}{(\tau^2 + k_{SG}^*\tau\theta\zeta)^2}
+k_{SB1}^* &= \frac{m_1 q_L}{2} + \frac{m_1 m_2\theta\zeta}{8} g(q_L, \sigma_{SB}) \frac{\tau^2}{(\tau^2 + k_{SB1}^*\tau\theta\zeta)^2}\\[2pt]
+k_{SG1}^* &= \frac{m_1 q_H}{2} + \frac{m_1 m_2\theta\zeta}{8} g(q_H, \sigma_{SG}) \frac{\tau^2}{(\tau^2 + k_{SG1}^*\tau\theta\zeta)^2}
 \end{align*}
 \end{alertblock}
 
@@ -580,11 +581,11 @@ k_{SG}^* &= \frac{m_1 q_H}{2} + \frac{m_1 m_2\theta\zeta}{8} g(q_H, \sigma_{SG})
 \begin{exampleblock}{聚合展示：两个耦合方程}
 \vspace{-8pt}
 \begin{align*}
-k_{IB}^* &= \frac{m_1 q_L}{2} + \frac{m_1 m_2\theta\zeta}{8}\left[g(q_L, \sigma_{IB})\cdot A_B + g(q_H, \sigma_{IG})\cdot B_B\right]\\[2pt]
-k_{IG}^* &= \frac{m_1 q_H}{2} + \frac{m_1 m_2\theta\zeta}{8}\left[g(q_L, \sigma_{IB})\cdot A_G + g(q_H, \sigma_{IG})\cdot B_G\right]
+k_{IB1}^* &= \frac{m_1 q_L}{2} + \frac{m_1 m_2\theta\zeta}{8}\left[g(q_L, \sigma_{IB})\cdot A_B + g(q_H, \sigma_{IG})\cdot B_B\right]\\[2pt]
+k_{IG1}^* &= \frac{m_1 q_H}{2} + \frac{m_1 m_2\theta\zeta}{8}\left[g(q_L, \sigma_{IB})\cdot A_G + g(q_H, \sigma_{IG})\cdot B_G\right]
 \end{align*}
 \vspace{-8pt}
-其中 $A_\delta, B_\delta$ 为 $(k_{IB}, k_{IG}, \tau, \theta, \zeta)$ 的复杂函数
+其中 $A_\delta, B_\delta$ 为 $(k_{IB1}, k_{IG1}, \tau, \theta, \zeta)$ 的复杂函数
 \end{exampleblock}
 
 \vspace{4pt}
@@ -594,21 +595,21 @@ k_{IG}^* &= \frac{m_1 q_H}{2} + \frac{m_1 m_2\theta\zeta}{8}\left[g(q_L, \sigma_
 \subsection{策略比较}
 
 \begin{frame}{对称情形：方差的 2:1 比例}
-考察对称情形：$q_L = q_H = q$，$m_1, m_2$ 相同。此时最优解也对称：$k_{SB}^* = k_{SG}^* = k_S^*$，$k_{IB}^* = k_{IG}^* = k_I^*$
+考察对称情形：$q_L = q_H = q$，$m_1, m_2$ 相同。此时第一期最优需求也对称：$k_{SB1}^* = k_{SG1}^* = k_{S1}^*$，$k_{IB1}^* = k_{IG1}^* = k_{I1}^*$
 
 \vspace{6pt}
-\begin{block}{引理：对称情形下的方差公式}
+\begin{block}{引理：对称情形下的方差公式（$k_{S1}, k_{I1}$为第一期需求量）}
 \begin{align*}
-\sigma_S^2 &= \frac{k_S\theta\zeta}{\tau^2 + k_S\tau\theta\zeta}, &
-\sigma_I^2 &= \frac{k_I\theta\zeta}{2(\tau^2 + k_I\tau\theta\zeta)}
+\sigma_S^2 &= \frac{k_{S1}\theta\zeta}{\tau^2 + k_{S1}\tau\theta\zeta}, &
+\sigma_I^2 &= \frac{k_{I1}\theta\zeta}{2(\tau^2 + k_{I1}\tau\theta\zeta)}
 \end{align*}
-特别地，当 $k_S = k_I = k$ 时，$\sigma_I^2 = \sigma_S^2 / 2$
+特别地，当 $k_{S1} = k_{I1} = k_1$ 时，$\sigma_I^2 = \sigma_S^2 / 2$
 \end{block}
 
 \vspace{6pt}
 \textbf{经济含义}：
 \begin{itemize}
-    \item 聚合展示将样本量从 $k$ 增加到 $2k$
+    \item 聚合展示将样本量从 $k_1$ 增加到 $2k_1$
     \item 但消费者\con{无法区分评论来源}
     \item 来源不确定性使有效信息量\con{减半}
     \item 该 2:1 比例与质量差距 $\Delta q$ \textbf{无关}
@@ -616,10 +617,10 @@ k_{IG}^* &= \frac{m_1 q_H}{2} + \frac{m_1 m_2\theta\zeta}{8}\left[g(q_L, \sigma_
 \end{frame}
 
 \begin{frame}{对称情形：一阶条件与利润排序}
-\begin{block}{命题：对称情形下的一阶条件}
+\begin{block}{命题：对称情形下的一阶条件（第一期最优需求量）}
 \begin{align*}
-k_S^* &= \frac{m_1 q}{2} + \frac{m_1 m_2\theta\zeta\tau^2}{8}\cdot\frac{g(q, \sigma_S)}{(\tau^2 + k_S^*\tau\theta\zeta)^2}\\[4pt]
-k_I^* &= \frac{m_1 q}{2} + \frac{m_1 m_2\theta\zeta\tau^2}{8}\cdot\frac{g(q, \sigma_I)}{\pos{2}(\tau^2 + k_I^*\tau\theta\zeta)^2}
+k_{S1}^* &= \frac{m_1 q}{2} + \frac{m_1 m_2\theta\zeta\tau^2}{8}\cdot\frac{g(q, \sigma_S)}{(\tau^2 + k_{S1}^*\tau\theta\zeta)^2}\\[4pt]
+k_{I1}^* &= \frac{m_1 q}{2} + \frac{m_1 m_2\theta\zeta\tau^2}{8}\cdot\frac{g(q, \sigma_I)}{\pos{2}(\tau^2 + k_{I1}^*\tau\theta\zeta)^2}
 \end{align*}
 聚合展示的信息激励项分母多了因子 \pos{2}
 \end{block}
@@ -627,7 +628,7 @@ k_I^* &= \frac{m_1 q}{2} + \frac{m_1 m_2\theta\zeta\tau^2}{8}\cdot\frac{g(q, \si
 \vspace{6pt}
 \begin{block}{命题：对称情形下的排序}
 \[
-k_S^* > k_I^*, \quad \Pi_S^* > \Pi_I^*, \quad CS_S^* > CS_I^*, \quad W_S^* > W_I^*
+k_{S1}^* > k_{I1}^*, \quad \Pi_S^* > \Pi_I^*, \quad CS_S^* > CS_I^*, \quad W_S^* > W_I^*
 \]
 分开展示在购买量、利润、消费者剩余、社会福利四个维度上\textbf{均严格占优}
 \end{block}
@@ -644,8 +645,8 @@ k_S^* > k_I^*, \quad \Pi_S^* > \Pi_I^*, \quad CS_S^* > CS_I^*, \quad W_S^* > W_I
 \toprule
 & 分开展示 & 聚合展示 \\
 \midrule
-$k_B^*$ & 0.5382 & 0.5031 \\
-$k_G^*$ & 1.0273 & 1.0241 \\
+$k_{B1}^*$ & 0.5382 & 0.5031 \\
+$k_{G1}^*$ & 1.0273 & 1.0241 \\
 $\sigma_B$ & 0.4605 & 0.2410 \\
 $\sigma_G$ & 0.5825 & 0.4907 \\
 $\Pi^*$ & \pos{2.6355} & 2.5741 \\
@@ -744,7 +745,7 @@ CS_{\psi 2} = \frac{m_{B2} \cdot \E[\max\{0, v_{\psi B}^2\}]}{8h} + \frac{m_{G2}
 \textbf{直观分析}
 \begin{itemize}
     \item 分开展示：各产品分别利用各自精度 $\zeta_B$、$\zeta_G$
-    \item 聚合展示：使用\con{加权调和平均}精度 $\bar{\zeta} = \frac{k_B + k_G}{k_B/\zeta_B + k_G/\zeta_G}$
+    \item 聚合展示：使用\con{加权调和平均}精度 $\bar{\zeta} = \frac{k_{B1} + k_{G1}}{k_{B1}/\zeta_B + k_{G1}/\zeta_G}$
     \item 调和平均对低精度敏感，低精度评论拖累整体信息质量
 \end{itemize}
 
@@ -881,14 +882,21 @@ $\rho = \zeta_G/\zeta_B$ & 分开展示利润 & 聚合展示利润 & 利润差 \
 \toprule
 \textbf{符号} & \textbf{含义} & \textbf{基准值} \\
 \midrule
-$q_L, q_H$ & 产品质量先验均值 & 1.0, 2.0 \\
+\multicolumn{3}{l}{\textit{产品与质量（$\delta \in \{B, G\}$）}} \\
+$q_L, q_H$ & 产品B、G的质量先验均值 & 1.0, 2.0 \\
 $\tau$ & 质量先验精度 & 1.0 \\
 $\zeta$ & 评论感知精度 & 1.0 \\
 $\theta$ & 评论生成概率 & 0.5 \\
-$k_\delta$ & 产品 $\delta$ 第一期购买量 & (内生) \\
+\midrule
+\multicolumn{3}{l}{\textit{两阶段变量（$t \in \{1, 2\}$）}} \\
+$k_{\delta t}$ & 产品 $\delta$ 在 $t$ 期的购买量 & (内生) \\
+$p_{\delta t}$ & 产品 $\delta$ 在 $t$ 期的价格 & (内生) \\
 $m_{\delta t}$ & 产品 $\delta$ 在 $t$ 期的市场规模 & 1.0 \\
+$v_{\psi\delta}$ & 第二期后验均值（$\psi \in \{S, I\}$） & (内生) \\
+\midrule
+\multicolumn{3}{l}{\textit{其他}} \\
 $h$ & 价格敏感度 & 1.0 \\
-$\sigma_{S\delta}^2, \sigma_{I\delta}^2$ & 后验方差（分开/聚合） & (内生) \\
+$\sigma_{\psi\delta}^2$ & 后验方差（基于$k_{\delta 1}$） & (内生) \\
 $\rho$ & 评论精度比 $\zeta_G/\zeta_B$ & 1.0 \\
 \bottomrule
 \end{tabular}
@@ -898,7 +906,7 @@ $\rho$ & 评论精度比 $\zeta_G/\zeta_B$ & 1.0 \\
 \begin{frame}{贝叶斯更新推导细节}
 \textbf{分开展示下的后验}
 
-给定 $n = k_\delta \theta$ 个评论信号，后验分布为：
+给定 $n = k_{\delta 1} \theta$ 个评论信号（第一期购买者产生），后验分布为：
 \[
 q_\delta \mid \{r_i\} \sim N\left(\frac{\tau \bar{q}_\delta + n\zeta\bar{r}}{\tau + n\zeta}, \frac{1}{\tau + n\zeta}\right)
 \]
@@ -911,9 +919,9 @@ q_\delta \mid \{r_i\} \sim N\left(\frac{\tau \bar{q}_\delta + n\zeta\bar{r}}{\ta
 \Var(\hat{q}_\delta) = \left(\frac{n\zeta}{\tau + n\zeta}\right)^2 \cdot \frac{1}{n\zeta} = \frac{n\zeta}{(\tau + n\zeta)^2}
 \]
 
-代入 $n = k_\delta \theta$ 并整理：
+代入 $n = k_{\delta 1} \theta$ 并整理：
 \[
-\sigma_{S\delta}^2 = \frac{k_\delta\theta\zeta}{\tau^2 + k_\delta\tau\theta\zeta}
+\sigma_{S\delta}^2 = \frac{k_{\delta 1}\theta\zeta}{\tau^2 + k_{\delta 1}\tau\theta\zeta}
 \]
 \end{frame}
 
