@@ -561,36 +561,34 @@ p^*_{\psi\delta 2} = \max\left\{0, \frac{v_{\psi\delta}}{2h}\right\}, \quad
 \]
 \end{frame}
 
-\begin{frame}{最优定价决策}
-引入辅助函数（Xiao 2022）：
-\[
-g(\mu, \sigma) = \int_{-\mu/\sigma}^{+\infty} z\left(z + \frac{\mu}{\sigma}\right)\phi(z)dz, \quad \phi(z) = \frac{1}{\sqrt{2\pi}}e^{-z^2/2}
-\]
-性质：$g$ 关于 $\sigma$ 递减，$\lim_{\sigma\to 0} g(\mu, \sigma) = 1$
+\begin{frame}{最优定价决策：一般情形}
+引入辅助函数（Xiao 2022）：$g(\mu, \sigma) = \int_{-\mu/\sigma}^{+\infty} z(z + \frac{\mu}{\sigma})\phi(z)dz$，性质：$g$ 关于 $\sigma$ 递减
 
-\vspace{8pt}
-\textbf{最优第一期销量}（一阶条件）
+\vspace{6pt}
+\textbf{一般情形的一阶条件}（隐函数方程）
 
-\begin{columns}[T]
-\column{0.48\textwidth}
-\begin{alertblock}{分开展示}
-\[
-k_S^* = \frac{mq_p}{2} + \frac{m^2\theta\zeta}{8} g(q_p, \sigma_S) \frac{\tau^2}{(\tau^2 + k_S\tau\theta\zeta)^2}
-\]
-对称性：$k_{SB}^* = k_{SG}^* = k_S^*$
+\vspace{4pt}
+\begin{alertblock}{分开展示：两个独立方程}
+\vspace{-8pt}
+\begin{align*}
+k_{SB}^* &= \frac{m_1 q_L}{2} + \frac{m_1 m_2\theta\zeta}{8} g(q_L, \sigma_{SB}) \frac{\tau^2}{(\tau^2 + k_{SB}^*\tau\theta\zeta)^2}\\[2pt]
+k_{SG}^* &= \frac{m_1 q_H}{2} + \frac{m_1 m_2\theta\zeta}{8} g(q_H, \sigma_{SG}) \frac{\tau^2}{(\tau^2 + k_{SG}^*\tau\theta\zeta)^2}
+\end{align*}
 \end{alertblock}
 
-\column{0.48\textwidth}
-\begin{exampleblock}{聚合展示}
-\[
-k_I^* = \frac{mq_p}{2} + \frac{m^2\theta\zeta}{8} g(q_p, \sigma_I) \frac{\tau^2}{\pos{2}(\tau^2 + k_I\tau\theta\zeta)^2}
-\]
-注意分母多了系数 \pos{2}
+\vspace{-4pt}
+\begin{exampleblock}{聚合展示：两个耦合方程}
+\vspace{-8pt}
+\begin{align*}
+k_{IB}^* &= \frac{m_1 q_L}{2} + \frac{m_1 m_2\theta\zeta}{8}\left[g(q_L, \sigma_{IB})\cdot A_B + g(q_H, \sigma_{IG})\cdot B_B\right]\\[2pt]
+k_{IG}^* &= \frac{m_1 q_H}{2} + \frac{m_1 m_2\theta\zeta}{8}\left[g(q_L, \sigma_{IB})\cdot A_G + g(q_H, \sigma_{IG})\cdot B_G\right]
+\end{align*}
+\vspace{-8pt}
+其中 $A_\delta, B_\delta$ 为 $(k_{IB}, k_{IG}, \tau, \theta, \zeta)$ 的复杂函数
 \end{exampleblock}
-\end{columns}
 
-\vspace{8pt}
-\textbf{经济含义}：聚合展示的信息价值被稀释，平台第一期销量的边际收益更低
+\vspace{4pt}
+\con{问题}：一般情形下为隐式方程组，\textbf{无法解析求解} $\Rightarrow$ 考虑对称特殊情形
 \end{frame}
 
 \subsection{策略比较}
