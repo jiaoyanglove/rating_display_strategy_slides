@@ -144,8 +144,8 @@ iPhone 15 vs iPhone 16\\
 \column{0.48\textwidth}
 \begin{alertblock}{分开展示 (Separate)}
 \begin{itemize}
-    \item 各产品评论\textbf{独立展示}
-    \item 消费者仅看到所选产品的评论
+    \item 同类垂直差异化产品评论\textbf{独立展示}
+    \item 消费者仅看到所选版本的评论
     \item 大多数电商平台的默认方式
 \end{itemize}
 \end{alertblock}
@@ -153,8 +153,8 @@ iPhone 15 vs iPhone 16\\
 \vspace{6pt}
 \begin{center}
 \begin{tikzpicture}[scale=0.75]
-    \node[draw, fill=negative!20, minimum width=1.3cm, font=\small] (B) at (0,0) {产品B};
-    \node[draw, fill=emphasis!20, minimum width=1.3cm, font=\small] (G) at (2.3,0) {产品G};
+    \node[draw, fill=negative!20, minimum width=1.3cm, font=\small] (B) at (0,0) {基础版};
+    \node[draw, fill=emphasis!20, minimum width=1.3cm, font=\small] (G) at (2.3,0) {高级版};
     \node[draw, dashed, font=\small] (RB) at (0,-0.9) {评论B};
     \node[draw, dashed, font=\small] (RG) at (2.3,-0.9) {评论G};
     \draw[->] (B) -- (RB);
@@ -165,7 +165,7 @@ iPhone 15 vs iPhone 16\\
 \column{0.48\textwidth}
 \begin{exampleblock}{聚合展示 (Integrate)}
 \begin{itemize}
-    \item 所有同类产品评论\textbf{合并展示}
+    \item 同系列产品评论\textbf{合并展示}
     \item 消费者看到综合评分
     \item 部分平台的"系列产品"评分
 \end{itemize}
@@ -174,8 +174,8 @@ iPhone 15 vs iPhone 16\\
 \vspace{6pt}
 \begin{center}
 \begin{tikzpicture}[scale=0.75]
-    \node[draw, fill=negative!20, minimum width=1.3cm, font=\small] (B) at (0,0) {产品B};
-    \node[draw, fill=emphasis!20, minimum width=1.3cm, font=\small] (G) at (2.3,0) {产品G};
+    \node[draw, fill=negative!20, minimum width=1.3cm, font=\small] (B) at (0,0) {基础版};
+    \node[draw, fill=emphasis!20, minimum width=1.3cm, font=\small] (G) at (2.3,0) {高级版};
     \node[draw, dashed, minimum width=2.6cm, font=\small] (R) at (1.15,-0.9) {聚合评论};
     \draw[->] (B) -- (R);
     \draw[->] (G) -- (R);
@@ -259,29 +259,36 @@ iPhone 15 vs iPhone 16\\
 \end{itemize}
 \end{frame}
 
-\begin{frame}{在线评论与消费者学习}
-\small
-\textbf{Acemoglu et al. (2022) — 评分系统与学习速度}
-\begin{itemize}
-    \item \textbf{内容}：比较不同评分系统下的学习速度，强调"选择效应"
-    \item \textbf{核心权衡}：更精细的评分加快学习，但减少每个子类别的样本量
-    \item \textbf{区别}：研究\con{同一产品}不同信息呈现；本文研究\pos{两个产品}之间的信息混合
-    \item \textbf{借鉴}：精度与样本量之间的张力
-\end{itemize}
+\begin{frame}{研究框架：四个核心问题}
+\begin{enumerate}
+    \item \textbf{消费者如何决策？}
+    \begin{itemize}
+        \item 第一期：基于先验信念 $q_p$ 决定是否购买
+        \item 第二期：观察评分信号 $r_\psi$，贝叶斯更新后验信念 $v_{\psi\delta}$，再决定购买
+    \end{itemize}
 
-\vspace{8pt}
-\textbf{Banerjee (1992); Bikhchandani et al. (1992) — 社会学习}
-\begin{itemize}
-    \item \textbf{内容}：羊群行为和信息瀑布模型
-    \item \textbf{借鉴}：第一期少量评论可能对第二期消费者信念产生较大影响
-\end{itemize}
+    \vspace{6pt}
+    \item \textbf{平台如何决策？}
+    \begin{itemize}
+        \item $t=0$：选择展示策略 $\psi \in \{S, I\}$，制定第一期价格 $p_{\delta 1}$
+        \item $t=1$：观察评分后，制定第二期最优价格 $p^*_{\delta 2} = v_{\psi\delta}/(2h)$
+    \end{itemize}
 
-\vspace{8pt}
-\textbf{Chevalier \& Mayzlin (2006) — 评论的因果效应}
-\begin{itemize}
-    \item \textbf{内容}：确认评论对销售的因果效应，差评影响大于好评
-    \item \textbf{本文局限}：模型尚未纳入好评/差评不对称机制
-\end{itemize}
+    \vspace{6pt}
+    \item \textbf{如何比较两种策略？}
+    \begin{itemize}
+        \item 对称情形：解析比较方差 $\sigma_S^2$ vs $\sigma_I^2$、利润 $\Pi_S^*$ vs $\Pi_I^*$
+        \item 一般情形：数值模拟验证参数敏感性
+    \end{itemize}
+
+    \vspace{6pt}
+    \item \textbf{其他考量因素}
+    \begin{itemize}
+        \item 消费者福利：$CS_S^*$ vs $CS_I^*$
+        \item 社会总福利：$W_S^*$ vs $W_I^*$
+        \item 扩展：评论精度非对称性 $\zeta_B \neq \zeta_G$
+    \end{itemize}
+\end{enumerate}
 \end{frame}
 
 \begin{frame}{平台评论系统设计}
