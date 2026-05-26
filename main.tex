@@ -338,12 +338,12 @@ iPhone 15 vs iPhone 16\\
     \node[above right, align=left, font=\small, text width=4.5cm] at (0,0.3) {
         \pos{平台决策}\\[2pt]
         选择展示策略 $\psi \in \{S, I\}$\\
-        制定第一期价格 $p_{\delta 1}$
+        制定第一期价格 $(p_{B1}, p_{G1})$
     };
     \node[above right, align=left, font=\small, text width=4.5cm] at (6,0.3) {
         \pos{平台决策}\\[2pt]
         观察评分 $r_\psi$\\
-        制定第二期价格 $p_{\delta 2}$
+        制定第二期价格 $(p_{B2}, p_{G2})$
     };
 
     % Consumer actions below timeline (in periods)
@@ -367,14 +367,14 @@ iPhone 15 vs iPhone 16\\
     \item \textbf{消费者如何决策？}
     \begin{itemize}
         \item 第一期：基于先验信念 $q_p$ 和价格 $(p_{B1}, p_{G1})$ 决定是否购买
-        \item 第二期：观察评分信号 $r_\psi$，贝叶斯更新后验信念 $v_{\psi\delta}$，结合价格 $(p_{B2}, p_{G2})$ 再决定购买
+        \item 第二期：观察评分信号 $r_\psi$，贝叶斯更新后验信念 $(v_{\psi B}, v_{\psi G})$，结合价格 $(p_{B2}, p_{G2})$ 再决定购买
     \end{itemize}
 
     \vspace{6pt}
     \item \textbf{平台如何决策？}
     \begin{itemize}
-        \item $t=0$：选择展示策略 $\psi \in \{S, I\}$，制定第一期价格 $p_{\delta 1}$
-        \item $t=1$：观察评分后，制定第二期最优价格 $p^*_{\delta 2} = v_{\psi\delta}/(2h)$
+        \item $t=0$：选择展示策略 $\psi \in \{S, I\}$，制定第一期价格 $(p_{B1}, p_{G1})$
+        \item $t=1$：观察评分后，制定第二期最优价格 $p^*_{B2} = v_{\psi B}/(2h)$，$p^*_{G2} = v_{\psi G}/(2h)$
     \end{itemize}
 
     \vspace{6pt}
